@@ -1,4 +1,23 @@
+如何获取浏览器URL中查询字符串中的参数：
 1.获取url参数
-      getUrlKey(name) {
-        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
-      },
+getUrlKey(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
+},
+   
+2.
+function showWindowHref(){
+    var sHref = window.location.href;
+    var args = sHref.split('?');
+    if(args[0] == sHref){
+        return "";
+    }
+    var arr = args[1].split('&');
+    var obj = {};
+    for(var i = 0;i< arr.length;i++){
+        var arg = arr[i].split('=');
+        obj[arg[0]] = arg[1];
+    }
+    return obj;
+}
+var href = showWindowHref(); // obj
+console.log(href['name']); // xiaoming
